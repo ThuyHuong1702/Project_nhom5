@@ -48,7 +48,14 @@ const HomeScreen = ({ navigation }) => {
 
       <View style={styles.fixedHeader}>
         <View style={styles.stats}>
-          <Text style={styles.stat}>🔥 1</Text>
+          <TouchableOpacity 
+            onPress={() => {
+              console.log("Navigating to FireScreen");
+              navigation.navigate('FireScreen');
+            }}
+          >
+            <Text style={[styles.stat, styles.stat]}>🔥 1</Text>
+          </TouchableOpacity>
           <Text style={styles.stat}>🛡️ 500</Text>
           <Text style={styles.stat}>❤️ 5</Text>
           <TouchableOpacity onPress={() => navigation.navigate('HosoScreen')}>
@@ -63,7 +70,10 @@ const HomeScreen = ({ navigation }) => {
           </View>
 
           <View style={styles.verticalDivider} />
-          <Image source={require('../assets/list.jpg')} style={styles.headerIcon} />
+          <Image 
+            source={{ uri: 'https://img.icons8.com/?size=100&id=111491&format=png&color=FFFFFF' }} 
+            style={styles.headerIcon} 
+          />
         </Animated.View>
       </View>
 
@@ -91,70 +101,29 @@ const HomeScreen = ({ navigation }) => {
           <Image source={require('../assets/chest.jpg')} style={[styles.island, styles.island4]} />
           <Image source={require('../assets/Group 41833.png')} style={styles.dashline4} />
           <Image source={require('../assets/dolphin.jpg')} style={[styles.island, styles.dolphin]} />
-          
-          <TouchableOpacity onPress={() => navigation.navigate('Lesson1Screen')} style={styles.circleWrapper}>
-            <Image source={require('../assets/Group 41830.png')} style={styles.circleBackground} />
-            <Image source={require('../assets/island1.jpg')} style={[styles.island, styles.island1]} />
-          </TouchableOpacity>
-          <Image source={require('../assets/Group 41836.png')} style={styles.dashline1} />
-          <TouchableOpacity onPress={() => navigation.navigate('Bai1')} style={styles.circleWrapper}>
-            <Image source={require('../assets/island2.jpg')} style={[styles.island, styles.island2]} />
-          </TouchableOpacity>
-          <Image source={require('../assets/Group 41831.png')} style={styles.dashline2} />
-          <Image source={require('../assets/island3.jpg')} style={[styles.island, styles.island3]} />
-          <Image source={require('../assets/Group 41834.png')} style={styles.dashline3} />
-          <Image source={require('../assets/chest.jpg')} style={[styles.island, styles.island4]} />
-          <Image source={require('../assets/Group 41833.png')} style={styles.dashline4} />
-          <Image source={require('../assets/dolphin.jpg')} style={[styles.island, styles.dolphin]} />
 
-          <TouchableOpacity onPress={() => navigation.navigate('Lesson1Screen')} style={styles.circleWrapper}>
-            <Image source={require('../assets/Group 41830.png')} style={styles.circleBackground} />
-            <Image source={require('../assets/island1.jpg')} style={[styles.island, styles.island1]} />
-          </TouchableOpacity>
-          <Image source={require('../assets/Group 41836.png')} style={styles.dashline1} />
-          <TouchableOpacity onPress={() => navigation.navigate('Bai1')} style={styles.circleWrapper}>
-            <Image source={require('../assets/island2.jpg')} style={[styles.island, styles.island2]} />
-          </TouchableOpacity>
-          <Image source={require('../assets/Group 41831.png')} style={styles.dashline2} />
-          <Image source={require('../assets/island3.jpg')} style={[styles.island, styles.island3]} />
-          <Image source={require('../assets/Group 41834.png')} style={styles.dashline3} />
-          <Image source={require('../assets/chest.jpg')} style={[styles.island, styles.island4]} />
-          <Image source={require('../assets/Group 41833.png')} style={styles.dashline4} />
-          <Image source={require('../assets/dolphin.jpg')} style={[styles.island, styles.dolphin]} />
+          {/* Divider between Section 1 and Section 2 */}
+          <View style={styles.sectionDivider} />
 
+          {/* Section 2 content */}
           <TouchableOpacity onPress={() => navigation.navigate('Lesson1Screen')} style={styles.circleWrapper}>
             <Image source={require('../assets/Group 41830.png')} style={styles.circleBackground} />
-            <Image source={require('../assets/island1.jpg')} style={[styles.island, styles.island1]} />
+            <Image source={require('../assets/dao1.jpg')} style={[styles.island, styles.island1]} />
           </TouchableOpacity>
           <Image source={require('../assets/Group 41836.png')} style={styles.dashline1} />
           <TouchableOpacity onPress={() => navigation.navigate('Bai1')} style={styles.circleWrapper}>
-            <Image source={require('../assets/island2.jpg')} style={[styles.island, styles.island2]} />
+            <Image source={require('../assets/dao2.jpg')} style={[styles.island, styles.island2]} />
           </TouchableOpacity>
           <Image source={require('../assets/Group 41831.png')} style={styles.dashline2} />
-          <Image source={require('../assets/island3.jpg')} style={[styles.island, styles.island3]} />
+          <Image source={require('../assets/dao3.jpg')} style={[styles.island, styles.island3]} />
           <Image source={require('../assets/Group 41834.png')} style={styles.dashline3} />
-          <Image source={require('../assets/chest.jpg')} style={[styles.island, styles.island4]} />
+          <Image source={require('../assets/ruong.jpg')} style={[styles.island, styles.island4]} />
           <Image source={require('../assets/Group 41833.png')} style={styles.dashline4} />
-          <Image source={require('../assets/dolphin.jpg')} style={[styles.island, styles.dolphin]} />
+          <Image source={require('../assets/caheohong.jpg')} style={[styles.island, styles.dolphin]} />
 
-          <TouchableOpacity onPress={() => navigation.navigate('Lesson1Screen')} style={styles.circleWrapper}>
-            <Image source={require('../assets/Group 41830.png')} style={styles.circleBackground} />
-            <Image source={require('../assets/island1.jpg')} style={[styles.island, styles.island1]} />
-          </TouchableOpacity>
-          <Image source={require('../assets/Group 41836.png')} style={styles.dashline1} />
-          <TouchableOpacity onPress={() => navigation.navigate('Bai1')} style={styles.circleWrapper}>
-            <Image source={require('../assets/island2.jpg')} style={[styles.island, styles.island2]} />
-          </TouchableOpacity>
-          <Image source={require('../assets/Group 41831.png')} style={styles.dashline2} />
-          <Image source={require('../assets/island3.jpg')} style={[styles.island, styles.island3]} />
-          <Image source={require('../assets/Group 41834.png')} style={styles.dashline3} />
-          <Image source={require('../assets/chest.jpg')} style={[styles.island, styles.island4]} />
-          <Image source={require('../assets/Group 41833.png')} style={styles.dashline4} />
-          <Image source={require('../assets/dolphin.jpg')} style={[styles.island, styles.dolphin]} />
-          {/* Additional sections (Section 2 to Section 5) */}
-          {/* Ensure structure is maintained and content is duplicated as needed */}
         </View>
       </Animated.ScrollView>
+
     </View>
   );
 };
@@ -235,13 +204,14 @@ const styles = StyleSheet.create({
     width: width * 0.25,
     height: width * 0.25,
     marginVertical: scaleHeight(15),
+    borderRadius: 100,
   },
   island1: {
-    width: scaleWidth(90),
-    height: scaleHeight(81.81),
+    width: scaleWidth(100),
+    height: scaleHeight(90),
   },
   dashline1: {
-    width: scaleWidth(155),
+    width: scaleWidth(200),
     height: scaleHeight(73),
     marginBottom: scaleHeight(10),
   },
@@ -290,6 +260,13 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#ddd',
     marginVertical: scaleHeight(20),
+  },
+  sectionDivider: {
+    width: '110%',              
+    borderBottomWidth: 3,      
+    borderColor: '#dddd',       
+    borderStyle: 'dashed',     
+    marginVertical: scaleHeight(40), 
   },
 });
 
