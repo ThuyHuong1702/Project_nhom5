@@ -7,6 +7,8 @@ const Screen9 = ({ navigation }) => {
   const [buttonText, setButtonText] = useState('Check');
   const [isCorrect, setIsCorrect] = useState(false);
   const correctAnswer = 'late';
+  const progress = 60;
+  const diamonds = 5; 
 
   const handleCheckAnswer = () => {
     if (selectedOption === correctAnswer) {
@@ -28,18 +30,22 @@ const Screen9 = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {/* Header with Progress Bar and Icons */}
-      <View style={styles.header}>
+      <View style={styles.headerContainer}>
+        {/* Close Button */}
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image style={styles.closeIcon} source={require('../images/Close_square.png')} />
+          <Ionicons name="close" size={34} color="#A9A9A9" />
         </TouchableOpacity>
-        <View style={styles.progressContainer}>
-          <View style={styles.progressBackground}>
-            <View style={styles.progressBar} />
-          </View>
+
+        {/* Progress Bar */}
+        <View style={styles.progressBarBackground}>
+          <View style={[styles.progressBar, { width: `${progress}%` }]} />
         </View>
-        <View style={styles.favoriteContainer}>
-          <Image style={styles.favoriteIcon} source={require('../images/Favorite_fill.png')} />
-          <Text style={styles.heartCount}>4</Text>
+        <View style={styles.diamondContainer}>
+          <Image
+            source={require('../images/Favorite_fill.png')} // Đường dẫn đến icon trái tim
+            style={styles.diamondIcon}
+          />
+          <Text style={styles.diamondCount}>{diamonds}</Text>
         </View>
       </View>
 
@@ -97,48 +103,42 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
     paddingHorizontal: 20,
-    paddingTop: 40,
-    paddingBottom: 80,
+    paddingTop: 35,
   },
-  header: {
+  headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 20,
+    paddingHorizontal: 10,
   },
-  closeIcon: {
-    width: 30,
-    height: 30,
-  },
-  progressContainer: {
+  progressBarBackground: {
     flex: 1,
-    alignItems: 'center',
-  },
-  progressBackground: {
-    width: '80%',
-    height: 10,
-    backgroundColor: '#c5c4c4',
+    height: 15,
+    backgroundColor: '#E0E0E0',
     borderRadius: 5,
+    marginHorizontal: 10,
     overflow: 'hidden',
   },
   progressBar: {
     height: '100%',
-    width: '70%',
-    backgroundColor: '#00c3fe',
+    backgroundColor: '#00C3FE',
+    borderRadius: 5,
   },
-  favoriteContainer: {
+  diamondContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  favoriteIcon: {
-    width: 30,
-    height: 30,
+  diamondIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
+    marginRight: 5,
   },
-  heartCount: {
-    fontSize: 20,
-    color: '#fe5959',
-    fontFamily: 'Jaldi',
-    marginLeft: 5,
+  diamondCount: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#FF5A5F',
   },
   questionTitle: {
     fontSize: 20,

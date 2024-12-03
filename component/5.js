@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Screen5 = ({ navigation }) => {
+  const progress = 60;
+  const diamonds = 5;
   const [selectedWord, setSelectedWord] = useState('');
   const [isCorrect, setIsCorrect] = useState(false);
   const [buttonText, setButtonText] = useState('Check');
@@ -29,14 +31,22 @@ const Screen5 = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {/* Header Section - Matching Screen4 */}
-      <View style={styles.header}>
-        <Ionicons name="close" size={24} color="#444" onPress={() => navigation.goBack()} />
-        <View style={styles.progressBar}>
-          <View style={styles.progressFill}></View>
+      <View style={styles.headerContainer}>
+        {/* Close Button */}
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name="close" size={34} color="#A9A9A9" />
+        </TouchableOpacity>
+
+        {/* Progress Bar */}
+        <View style={styles.progressBarBackground}>
+          <View style={[styles.progressBar, { width: `${progress}%` }]} />
         </View>
-        <View style={styles.pointsContainer}>
-          <Ionicons name="heart" size={24} color="#FF5A5F" />
-          <Text style={styles.points}>4</Text>
+        <View style={styles.diamondContainer}>
+          <Image
+            source={require('../images/Favorite_fill.png')} // Đường dẫn đến icon trái tim
+            style={styles.diamondIcon}
+          />
+          <Text style={styles.diamondCount}>{diamonds}</Text>
         </View>
       </View>
 
@@ -83,37 +93,44 @@ const Screen5 = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-    padding: 16,
+    backgroundColor: '#f5f5f5',
+    paddingHorizontal: 20,
+    paddingTop: 35,
   },
-  header: {
+  headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginBottom: 20,
+    paddingHorizontal: 10,
   },
-  progressBar: {
+  progressBarBackground: {
     flex: 1,
-    height: 6,
-    backgroundColor: '#E6E6E6',
-    borderRadius: 3,
+    height: 15,
+    backgroundColor: '#E0E0E0',
+    borderRadius: 5,
     marginHorizontal: 10,
     overflow: 'hidden',
   },
-  progressFill: {
-    width: '40%',
+  progressBar: {
     height: '100%',
-    backgroundColor: '#00A6FF',
+    backgroundColor: '#00C3FE',
+    borderRadius: 5,
   },
-  pointsContainer: {
+  diamondContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  points: {
-    color: '#444',
-    fontWeight: 'bold',
-    fontSize: 16,
-    marginLeft: 5,
+  diamondIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
+    marginRight: 5,
+  },
+  diamondCount: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#FF5A5F',
   },
   lessonInfo: {
     fontSize: 16,

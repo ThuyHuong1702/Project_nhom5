@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'rea
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Screen2 = ({ navigation }) => {
+  const progress = 60;
+  const diamonds = 5; 
   const [selectedOption, setSelectedOption] = useState(null);
   const [correctOption] = useState('Cat');
   const [isAnswerChecked, setIsAnswerChecked] = useState(false);
@@ -21,9 +23,9 @@ const Screen2 = ({ navigation }) => {
 
   const handleCheckOrContinue = () => {
     if (isAnswerChecked) {
-      navigation.navigate('Screen3'); 
+      navigation.navigate('Screen3');
     } else {
-      setIsAnswerChecked(true); 
+      setIsAnswerChecked(true);
     }
   };
 
@@ -37,17 +39,22 @@ const Screen2 = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <Ionicons name="close" size={24} color="#FF5A5F" />
-        <View style={styles.progressBar}>
-          <View style={styles.progressFill}></View>
+      <View style={styles.headerContainer}>
+        {/* Close Button */}
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name="close" size={34} color="#A9A9A9" />
+        </TouchableOpacity>
+
+        {/* Progress Bar */}
+        <View style={styles.progressBarBackground}>
+          <View style={[styles.progressBar, { width: `${progress}%` }]} />
         </View>
-        <View style={styles.pointsContainer}>
-          <Text style={styles.points}>462</Text>
+        <View style={styles.diamondContainer}>
           <Image
-            source={require('../images/Group 125.png')}
+            source={require('../images/Favorite_fill.png')} // Đường dẫn đến icon trái tim
             style={styles.diamondIcon}
           />
+          <Text style={styles.diamondCount}>{diamonds}</Text>
         </View>
       </View>
 
@@ -90,42 +97,44 @@ const Screen2 = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#f5f5f5',
     paddingHorizontal: 20,
+    paddingTop: 35,
   },
-  header: {
+  headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 20,
-    paddingTop: 40,
-    backgroundColor: '#FFF',
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  progressBarBackground: {
+    flex: 1,
+    height: 15,
+    backgroundColor: '#E0E0E0',
+    borderRadius: 5,
+    marginHorizontal: 10,
+    overflow: 'hidden',
   },
   progressBar: {
-    flex: 1,
-    height: 6,
-    backgroundColor: '#E6E6E6',
-    borderRadius: 3,
-    marginHorizontal: 70,
-  },
-  progressFill: {
-    width: '40%',
     height: '100%',
-    backgroundColor: '#00A6FF',
-    borderRadius: 3,
+    backgroundColor: '#00C3FE',
+    borderRadius: 5,
   },
-  pointsContainer: {
+  diamondContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  points: {
-    color: '#00A6FF',
-    fontWeight: 'bold',
+  diamondIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
     marginRight: 5,
   },
-  diamondIcon: {
-    width: 16,
-    height: 16,
+  diamondCount: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#FF5A5F',
   },
   questionText: {
     marginTop: 20,
@@ -187,7 +196,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: '#00c3fe',
+    color: '#FFFFFF',
     fontWeight: '600',
   },
 });

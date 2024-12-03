@@ -1,44 +1,46 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-const  Screen1 = ({ navigation }) => {
+const { width } = Dimensions.get('window');
+
+const Screen1 = ({ navigation }) => {
+  const progress = 60;
+  const diamonds = 5; 
+
   return (
     <View style={styles.container}>
-      {/* Header with Back Icon, Progress, and Diamond Count */}
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Text style={styles.backIcon}>×</Text>
+      {/* Header */}
+      <View style={styles.headerContainer}>
+        {/* Close Button */}
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name="close" size={34} color="#A9A9A9" />
         </TouchableOpacity>
-        <View style={styles.progressBackground}>
-          <View style={styles.progressBar} />
+
+        {/* Progress Bar */}
+        <View style={styles.progressBarBackground}>
+          <View style={[styles.progressBar, { width: `${progress}%` }]} />
         </View>
         <View style={styles.diamondContainer}>
-          <Image style={styles.diamondIcon} source={require('../images/Group 125.png')} />
-          <Text style={styles.diamondCount}>462</Text>
+          <Image
+            source={require('../images/Favorite_fill.png')} // Đường dẫn đến icon trái tim
+            style={styles.diamondIcon}
+          />
+          <Text style={styles.diamondCount}>{diamonds}</Text>
         </View>
       </View>
 
-      {/* Prompt Title */}
+      {/* Nội dung khác trong màn hình */}
       <Text style={styles.promptTitle}>Speak this sentence</Text>
-
-      {/* Sentence to Speak */}
       <View style={styles.sentenceContainer}>
         <Image style={styles.audioIcon} source={require('../images/bxs-volume-full.svg.png')} />
         <Text style={styles.sentenceText}>Bevo caffè e acqua.</Text>
       </View>
-
-      {/* Translation */}
       <Text style={styles.translationText}>I drink coffee and water.</Text>
-
-      {/* Character Image */}
       <Image style={styles.characterImage} source={require('../images/snapedit_1727944725657.png')} />
-
-      {/* Voice Recording Visual */}
       <View style={styles.recordingContainer}>
         <Image style={styles.recordingWaveform} source={require('../images/Group 5354.png')} />
       </View>
-
-      {/* Bottom Section with Correct Message and Continue Button */}
       <View style={styles.bottomSection}>
         <View style={styles.correctContainer}>
           <Text style={styles.correctText}>Correct!</Text>
@@ -60,45 +62,42 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
     paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingTop: 35,
   },
-  header: {
+  headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginBottom: 20,
+    paddingHorizontal: 10,
   },
-  backIcon: {
-    fontSize: 24,
-    color: '#900',
-    marginLeft: 10,
-  },
-  progressBackground: {
+  progressBarBackground: {
     flex: 1,
-    height: 6,
-    backgroundColor: '#e0e0e0',
-    borderRadius: 3,
+    height: 15,
+    backgroundColor: '#E0E0E0',
+    borderRadius: 5,
     marginHorizontal: 10,
+    overflow: 'hidden',
   },
   progressBar: {
-    width: '50%', 
     height: '100%',
-    backgroundColor: '#00c3fe',
-    borderRadius: 3,
+    backgroundColor: '#00C3FE',
+    borderRadius: 5,
   },
   diamondContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 10,
   },
   diamondIcon: {
-    width: 16,
-    height: 16,
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
     marginRight: 5,
   },
   diamondCount: {
-    fontSize: 14,
-    color: '#00c3fe',
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#FF5A5F',
   },
   promptTitle: {
     fontSize: 16,
@@ -140,19 +139,18 @@ const styles = StyleSheet.create({
   },
   recordingContainer: {
     borderWidth: 1,
-    borderColor: '#00c3fe',
+    borderColor: '#00C3FE',
     borderRadius: 10,
     padding: 10,
     alignItems: 'center',
     marginBottom: 20,
-    marginTop:30,
   },
   recordingWaveform: {
     width: 160,
     height: 40,
   },
   bottomSection: {
-    backgroundColor: '#00c3fe',
+    backgroundColor: '#00C3FE',
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -191,9 +189,9 @@ const styles = StyleSheet.create({
   },
   continueButtonText: {
     fontSize: 18,
-    color: '#00c3fe',
+    color: '#00C3FE',
     fontWeight: '600',
   },
 });
 
-export default  Screen1;
+export default Screen1;
