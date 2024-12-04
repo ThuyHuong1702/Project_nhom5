@@ -1,255 +1,239 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Linking, Image, Dimensions } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, Button, Image } from 'react-native';
+import { WebView } from 'react-native-webview';
+import { useNavigation } from '@react-navigation/native';
 
-const App = () => {
-  const [selectedPlan, setSelectedPlan] = useState(2);
+const TravelAppScreen = () => {
+  const navigation = useNavigation();
 
-  const handleSelectPlan = (planId) => {
-    setSelectedPlan(planId);
+  const handlePress = () => {
+    // Điều hướng đến màn hình thanh toán
+    navigation.navigate('Payment');
   };
 
-
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.header}>
-        <Image
-          source={require('../assets/dophinthanhtoan.jpg')}
-          style={styles.logo}
+    <View style={styles.container}>
+      {/* Sticky Video Section */}
+      <View style={styles.stickyHeader}>
+        <WebView
+          style={styles.video}
+          source={{ uri: 'https://www.youtube.com/embed/Zp-Jhuhq0bQ' }}
+          allowsFullscreenVideo
         />
-        <View style={styles.title}>
-          <Text style={styles.titleText}>DolphinDash</Text>
-          <View style={styles.plusBadge}>
-            <Text style={styles.plusText}>PLUS</Text>
+      </View>
+
+      {/* Scrollable Content */}
+      <ScrollView contentContainerStyle={styles.content}>
+        {/* Horizontal Scroll Section */}
+        <View style={styles.horizontalContainer}>
+          <Text style={styles.horizontalTitle}>Các câu nổi bật</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
+            <SentenceCard text="At the top of our bucket list is the Philippines." translation="Địa điểm chúng tôi muốn tới nhất là Philippines." />
+            <SentenceCard text="I really want to go backpacking." translation="Tôi rất muốn đi du lịch bụi." />
+            <SentenceCard text="I want to go to Japan." translation="Tôi muốn tới Nhật Bản." />
+            <SentenceCard text="We would love to go to New Zealand." translation="Chúng tôi rất muốn đến New Zealand." />
+            <SentenceCard text="I want to travel frequently." translation="Tôi muốn đi du lịch thường xuyên." />
+          </ScrollView>
+        </View>
+
+        {/* Practice Section */}
+        <View style={styles.practiceContainer}>
+          <Text style={styles.practiceText}>Hãy thử luyện nói nào!</Text>
+          <View style={styles.practiceBox}>
+            <Text style={styles.practiceSentence}>At the top of our bucket list is the Philippines.</Text>
+            <Text style={styles.practiceTranslation}>Địa điểm chúng tôi muốn tới nhất là Philippines.</Text>
+            <View>
+              <Button
+                title="Luyện nói"
+                color='#00B7FF'
+                onPress={handlePress}
+              />
+            </View>
           </View>
         </View>
-      </View>
 
-      <Text style={styles.description}>
-        Tận hưởng tất cả nội dung trong app DolphinDash vô giới hạn!
-      </Text>
-
-      {/* Subscription Plans */}
-      <TouchableOpacity
-        style={[styles.plan, selectedPlan === 1 && styles.selectedPlan]}
-        onPress={() => handleSelectPlan(1)}
-      >
-        <Text style={styles.planText}>1 tháng</Text>
-        <Text style={styles.planPrice}>199.000đ</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[styles.plan, selectedPlan === 2 && styles.selectedPlan]}
-        onPress={() => handleSelectPlan(2)}
-      >
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>TỐT NHẤT • Sản phẩm giảm giá</Text>
+        {/* Title Section */}
+        <View style={styles.titleContainer}>
+          <Text style={styles.subtitle}>Chủ đề đang học</Text>
+          <Text style={styles.title}>Tôi muốn đi du lịch</Text>
         </View>
-        <Text style={styles.planText}>12 tháng</Text>
-        <View style={styles.planPriceGroup}>
-          <Text style={styles.oldPrice}>2.748.000 đ</Text>
-          <Text style={styles.newPrice}>1.149.000 đ</Text>
-          <Text style={styles.monthlyPrice}>95.750 đ/tháng</Text>
-        </View>
-      </TouchableOpacity>
 
-      <TouchableOpacity
-        style={[styles.plan, selectedPlan === 3 && styles.selectedPlan]}
-        onPress={() => handleSelectPlan(3)}
-      >
-        <View style={styles.familyBadgeContainer}>
-          <Text style={styles.familyBadge}>Tối đa 6 người</Text>
-        </View>
-        <View style={styles.planContent}>
-          <Text style={styles.planText}>Gói Gia đình</Text>
-          <Text style={styles.planPrice}>2.399.000đ</Text>
-        </View>
-      </TouchableOpacity>
-
-      <View style={styles.paymentButtonsContainer}>
-        <TouchableOpacity
-          style={[styles.paymentButton, styles.momoButton]}
-          onPress={() => Linking.openURL('https://momo.vn')}
-        >
-          <Image
-            source={require('../assets/momo.jpg')}
-            style={styles.paymentLogo}
+        {/* Sentences List */}
+        <View style={styles.listContainer}>
+          <Sentence 
+            text="Địa điểm chúng tôi muốn tới nhất là Philippines." 
+            translation="At the top of our bucket list is the Philippines." 
+            imageSource={require('../assets/caheo5.jpg')} 
           />
-          <Text style={styles.paymentButtonText}>Thanh toán qua MoMo</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[styles.paymentButton, styles.vnpButton]}
-          onPress={() => Linking.openURL('https://www.vnpay.vn')}
-        >
-          <Image
-            source={require('../assets/vnp.jpg')}
-            style={styles.paymentLogo}
+          <View style={styles.dashedLine} />
+          <Sentence 
+            text="Tôi rất muốn đi du lịch bụi." 
+            translation="I really want to go backpacking." 
+            imageSource={require('../assets/caheo2.jpg')} 
           />
-          <Text style={styles.paymentButtonText}>Thanh toán qua VNP</Text>
-        </TouchableOpacity>
-      </View>
-
-      <Text style={styles.note}>
-        *Hủy đăng ký bất cứ khi nào tại 
-        <TouchableOpacity onPress={() => Linking.openURL('https://play.google.com/store/account/subscriptions')}>
-          <Text style={styles.link}> Google Play</Text>
-        </TouchableOpacity>
-      </Text>
-    </ScrollView>
+          <View style={styles.dashedLine} />
+          <Sentence 
+            text="Tôi muốn tới Nhật Bản." 
+            translation="I want to go to Japan." 
+            imageSource={require('../assets/caheo3.jpg')} 
+          />
+          <View style={styles.dashedLine} />
+          <Sentence 
+            text="Chúng tôi rất muốn đến New Zealand." 
+            translation="We would love to go to New Zealand." 
+            imageSource={require('../assets/caheo4.jpg')} 
+          />
+          <View style={styles.dashedLine} />
+          <Sentence 
+            text="Tôi muốn đi du lịch thường xuyên." 
+            translation="I want to travel frequently." 
+            imageSource={require('../assets/caheo1.jpg')} 
+          />
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
+const SentenceCard = ({ text, translation }) => (
+  <View style={styles.card}>
+    <Text style={styles.cardText}>{text}</Text>
+    <Text style={styles.cardTranslation}>{translation}</Text>
+  </View>
+);
+
+const Sentence = ({ text, translation, imageSource }) => (
+  <View style={styles.sentenceContainer}>
+    <Image source={imageSource} style={styles.sentenceImage} />
+    <View>
+      <Text style={styles.sentenceText}>{text}</Text>
+      <Text style={styles.sentenceTranslation}>{translation}</Text>
+    </View>
+  </View>
+);
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,  // Allow the container to take the full available space
-    padding: 20,
-    backgroundColor: '#ffffff',
+    flex: 1,
+    backgroundColor: '#fff',
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 25,
-  },
-  title: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logo: {
-    width: 55,
-    height: 55,
-    marginRight: 10,
-  },
-  titleText: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: '#0089CC',
-  },
-  plusBadge: {
-    backgroundColor: '#00B7FF',
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 4,
-    marginLeft: 5,
-  },
-  plusText: {
-    color: '#fff',
-    fontSize: 16,
-  },
-  description: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#000',
-    marginBottom: 25,
-  },
-  plan: {
-    borderWidth: 1,
-    borderColor: '#e5e5e5',
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 25,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    position: 'relative',
-  },
-  selectedPlan: {
-    borderColor: '#00B7FF',
-  },
-  badge: {
-    position: 'absolute',
-    top: -10,
-    left: 10,
-    backgroundColor: '#00B7FF',
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 4,
-  },
-  badgeText: {
-    color: '#fff',
-    fontSize: 12,
-  },
-  planText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  planPriceGroup: {
-    alignItems: 'flex-end',
-  },
-  oldPrice: {
-    color: 'gray',
-    textDecorationLine: 'line-through',
-  },
-  newPrice: {
-    color: '#ff4500',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  monthlyPrice: {
-    fontSize: 12,
-    color: 'gray',
-  },
-  familyBadgeContainer: {
-    position: 'absolute',
-    top: -10,
-    left: 10,
-    backgroundColor: '#00B7FF',
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 4,
-  },
-  familyBadge: {
-    color: 'white',
-    fontSize: 12,
-  },
-  planContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  stickyHeader: {
+    position: 'absolute', 
+    top: 0,
     width: '100%',
-    alignItems: 'center',
+    zIndex: 10,
+    backgroundColor: '#fff',
   },
-  paymentButtonsContainer: {
-    marginTop: 20,
-    alignItems: 'center',
+  video: {
+    width: '100%',
+    height: 200,
   },
-  paymentButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 15,
-    width: '90%',
-    justifyContent: 'center',
+  content: {
+    paddingTop: 210, 
   },
-  momoButton: {
-    backgroundColor: '#D500F9', 
+  horizontalContainer: {
+    marginTop: 10,
+    padding: 10,
   },
-  vnpButton: {
-    backgroundColor: '#00A8E8', 
-  },
-  paymentLogo: {
-    width: 35,
-    height: 35,
-    marginRight: 10,
-    borderRadius: 5,
-  },
-  paymentButtonText: {
-    color: '#fff',
+  horizontalTitle: {
     fontSize: 16,
     fontWeight: 'bold',
+    marginBottom: 10,
   },
-  note: {
-    color: '#777',
-    fontSize: 12,
-    textAlign: 'center',
-    marginTop: 20,
+  horizontalScroll: {
+    flexDirection: 'row',
   },
-  link: {
+  card: {
+    backgroundColor: '#f9f9f9',
+    padding: 15,
+    borderRadius: 10,
+    marginRight: 10,
+    width: 250,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 2,
+  },
+  cardText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  cardTranslation: {
+    fontSize: 14,
+    color: '#666',
+  },
+  titleContainer: {
+    padding: 20,
+  },
+  subtitle: {
     color: '#00B7FF',
     fontWeight: 'bold',
   },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  practiceContainer: {
+    padding: 20,
+    backgroundColor: '#f9f9f9',
+  },
+  practiceText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#00B7FF',
+  },
+  practiceBox: {
+    padding: 20,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  practiceSentence: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  practiceTranslation: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 15,
+  },
+  listContainer: {
+    padding: 20,
+  },
+  sentenceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+    marginLeft: 10,  
+  },
+  sentenceImage: {
+    width: 55,
+    height: 55,
+    borderRadius: 50,
+    marginRight: 10,
+    alignSelf: 'flex-start',  
+    borderWidth: 2,          
+    borderColor: '#007bff',   
+  },
+  sentenceText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  sentenceTranslation: {
+    fontSize: 14,
+    color: '#666',
+  },
+  dashedLine: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+    marginVertical: 5,
+    borderStyle: 'dashed', 
+  },
 });
 
-export default App;
+export default TravelAppScreen;
