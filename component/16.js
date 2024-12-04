@@ -20,7 +20,7 @@ const Screen16 = ({ navigation }) => {
 
   const handleNext = () => {
     if (showFeedback) {
-      navigation.navigate('Screen17');
+      navigation.navigate('CustomHome');
     }
   };
 
