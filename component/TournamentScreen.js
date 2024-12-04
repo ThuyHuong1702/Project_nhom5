@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const rankingData = [
   { id: '1', name: 'Phùng Văn Vũ', score: 672, medal: '🥇', rankColor: '#f44336', letter: 'V' },
@@ -19,7 +20,9 @@ const TournamentScreen = ({ navigation }) => {
   const goToRanking = () => {
     navigation.navigate('Ranking');
   };
-
+  const goBack = () => {
+    navigation.goBack(); // Go back to the previous screen
+  };
   const renderRankingItem = ({ item }) => (
     <View style={[styles.rankingItem, item.name === 'Đỗ Thúy Hường' && styles.highlightedItem]}>
       <View style={styles.rankingLeft}>
@@ -36,6 +39,9 @@ const TournamentScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <TouchableOpacity style={styles.backButton} onPress={goBack}>
+          <Icon name="arrow-back" size={30} color="#000" /> 
+        </TouchableOpacity>
         <View style={styles.tabs}>
           <Text style={[styles.tabButton, styles.activeTab]}>Giải đấu</Text>
           <TouchableOpacity onPress={goToRanking}>
@@ -89,6 +95,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 50,
     alignItems: 'center',
+  },
+  backButton: {
+    position: 'absolute',
+    left: 20,
+    top: 40,
   },
   tabs: {
     flexDirection: 'row',
