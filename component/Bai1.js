@@ -39,7 +39,12 @@ const Bai1 = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Ionicons name="close" size={34} color="#A9A9A9" />
+                <Ionicons
+                    name="close"
+                    size={34}
+                    color="#A9A9A9"
+                    onPress={() => navigation.navigate('CustomHome')} 
+                />
                 <View style={styles.progressBar}>
                     <View style={styles.progress} />
                 </View>
@@ -62,7 +67,7 @@ const Bai1 = ({ navigation }) => {
             </View>
 
             <View style={styles.optionsContainer}>
-                {[ 
+                {[
                     { image: require('../assets/bicycle.png'), label: 'xe đạp' },
                     { image: require('../assets/library.png'), label: 'thư viện' },
                     { image: require('../assets/theatre.png'), label: 'nhà hát' },
@@ -70,7 +75,7 @@ const Bai1 = ({ navigation }) => {
                 ].map((option, index) => (
                     <TouchableOpacity
                         key={index}
-                        style={[ 
+                        style={[
                             styles.optionButton,
                             selectedOption === index && styles.selectedOptionButton,
                         ]}
@@ -94,11 +99,11 @@ const Bai1 = ({ navigation }) => {
             {checked && (
                 <View style={[styles.resultOverlay, isCorrect ? styles.correctOverlay : styles.incorrectOverlay]}>
                     <Ionicons
-    name={isCorrect ? "checkmark-circle" : "close-circle"}
-    size={24}
-    color={isCorrect ? "blue" : "red"} // Green for correct, red for incorrect
-    style={styles.resultIcon}
-/>
+                        name={isCorrect ? "checkmark-circle" : "close-circle"}
+                        size={24}
+                        color={isCorrect ? "blue" : "red"} // Green for correct, red for incorrect
+                        style={styles.resultIcon}
+                    />
                     <Text style={isCorrect ? styles.correctText : styles.incorrectText}>
                         {isCorrect ? "Tuyệt vời!" : "Rất tiếc"}
                     </Text>
