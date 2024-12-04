@@ -8,7 +8,7 @@ export default function Screen3({ navigation }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
 
-  const correctAnswer = 'velo';
+  const correctAnswer = 'Xe đạp';
 
   const handleCheckAnswer = () => {
     setIsChecked(true);
@@ -62,7 +62,7 @@ export default function Screen3({ navigation }) {
 
       {/* Answer Options */}
       <View style={styles.answerOptions}>
-        {['velo', 'voiture', 'raquette', 'arbre'].map((word, index) => (
+        {['Xe đạp', 'Ô tô', 'Vợt', 'Cây'].map((word, index) => (
           <TouchableOpacity
             key={index}
             style={[

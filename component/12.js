@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingVertical: 15,
     alignItems: 'center',
+    marginBottom: 50,
   },
   continueButtonText: {
     fontSize: 18,

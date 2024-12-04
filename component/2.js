@@ -67,7 +67,7 @@ const Screen2 = ({ navigation }) => {
             source={require('../images/bxs-volume-full.svg.png')}
             style={styles.iconImage}
           />
-          <Text style={styles.sentence}>Gatton</Text>
+          <Text style={styles.sentence}>Cat</Text>
         </View>
 
         <View style={styles.optionsContainer}>

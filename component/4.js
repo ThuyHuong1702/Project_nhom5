@@ -8,7 +8,7 @@ const Screen4 = ({ navigation }) => {
   // Mảng từ cần hoàn thiện
   const [blanks, setBlanks] = useState(['____', '____', '____', '____', '____', '____', '____', '____', '____', '____', '____', '____', '____', '____', '____', '____']);
   // Các chữ cái có sẵn
-  const [availableLetters, setAvailableLetters] = useState(['chúng', 'ơn', 'phòng', 'Bố', 'xe buýt', 'mẹ', 'muốn', 'không', 'tôi', 'chúng', 'tôi', 'về', 'nhà']);
+  const [availableLetters, setAvailableLetters] = useState(['chúng', 'ơn', 'phòng', 'Bố', 'xe buýt', 'mẹ', 'muốn', 'không', 'tôi', 'chúng', 'tôi', 'về', 'nhà', 'muộn']);
   // Hàm xử lý khi nhấn vào chữ cái
   const handleLetterPress = (letter) => {
     // Tìm ô trống đầu tiên và điền chữ vào đó
@@ -204,7 +204,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20, 
     left: 20,  
-    right: 20,  
+    right: 20,
+    marginBottom: 50,
   },
   
   continueButtonText: {
