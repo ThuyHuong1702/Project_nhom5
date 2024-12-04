@@ -38,12 +38,17 @@ const Bai3 = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Ionicons name="close" size={34} color="#A9A9A9" />
+                <Ionicons
+                    name="close"
+                    size={34}
+                    color="#A9A9A9"
+                    onPress={() => navigation.navigate('CustomHome')} 
+                />
                 <View style={styles.progressBar}>
                     <View style={styles.progress} />
                 </View>
                 <View style={styles.heartContainer}>
-                    <Ionicons name="heart" size={24} color="red" />
+                    <Ionicons name="heart" size={28} color="red" />
                     <Text style={styles.heartText}>{lives}</Text>
                 </View>
             </View>
@@ -165,7 +170,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         flexDirection: 'row', // Đặt biểu tượng và văn bản trong một hàng ngang
         alignItems: 'center',
-        marginBottom: 20, 
+        marginBottom: 20,
         marginRight: 100,
     },
     audioIcon: {
