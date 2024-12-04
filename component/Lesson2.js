@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
-import * as Speech from 'expo-speech'; // Importing Speech module
+import * as Speech from 'expo-speech'; 
+import { useNavigation } from '@react-navigation/native';
 
 const ProgressBar = () => {
   return (
@@ -81,39 +82,48 @@ const SpeakingTask = () => {
   return (
     <View style={styles.speakingContainer}>
       <View style={styles.speakingContent}>
+
         <Image source={require('../assets/mascot.png')} style={styles.animalImage} />
-        {/* Add the uploaded image next to the text */}
+        <ImageBackground
+              source={require('../assets/Group 10.png')} // Hình nền
+              style={styles.background}
+              >
         <View style={styles.speechBubble}>
-          <Image source={require('../assets/Group 9.png')} style={styles.volumeIcon} />
+          <Image source={require('../assets/volume.png')} style={styles.volumeIcon} />
           <Text style={styles.speechText}>Our parents don’t want us to come home late.</Text>
         </View>
+        </ImageBackground>
       </View>
       <TouchableOpacity style={styles.speakButton} onPress={handleSpeakButtonPress}>
         <FontAwesome name="microphone" size={24} color="#00CFFF" />
         <Text style={styles.speakButtonText}>{isRecording ? 'DỪNG GHI ÂM' : 'NHẤN ĐỂ NÓI'}</Text>
       </TouchableOpacity>
+
     </View>
   );
 };
 
-const Footer = () => {
+const Footer = ({ navigation }) => {
   return (
     <View style={styles.footer}>
       <Text style={styles.cantHearText}>HIỆN KHÔNG NGHE ĐƯỢC</Text>
-      <TouchableOpacity style={styles.continueButton}>
+      <TouchableOpacity
+        style={styles.continueButton}
+        onPress={() => navigation.navigate('Lesson3Screen')}
+      >
         <Text style={styles.continueButtonText}>TIẾP TỤC</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-const ReadingScreen = () => {
+const ReadingScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ProgressBar />
       <SpeakingTask />
-      <View style={{flex: 1}}/>
-      <Footer />
+      <View style={{ flex: 1 }} />
+      <Footer navigation={navigation} />
     </View>
   );
 };
@@ -127,6 +137,10 @@ const styles = StyleSheet.create({
   progressContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  background:{
+    width: 239,   // Kích thước của hình ảnh
+    height: 150,  // Kích thước của hình ảnh
   },
   header: {
     flexDirection: 'row',
@@ -191,17 +205,14 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   speechBubble: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: '#00CFFF',
-    borderWidth: 1,
-    borderRadius: 20,
-    padding: 15,
-    maxWidth: '70%',
+    flexDirection: 'row',  // Đặt các phần tử trong hàng
+    maxWidth: '80%',  // Giới hạn độ rộng của speechBubble
+    marginLeft: 30,
+    marginTop: 40,
   },
   volumeIcon: {
-    width: 20,
-    height: 20,
+    width: 36,
+    height: 36,
     marginRight: 10, // Space between icon and text
   },
   speechText: {
