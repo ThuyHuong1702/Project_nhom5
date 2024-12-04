@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image  } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const rankingData = [
   { id: '1', name: 'Phùng Văn Vũ', score: 672, medal: '🥇', rankColor: '#f44336', letter: 'V' },
@@ -17,7 +18,9 @@ const rankingData = [
 
 const RankingScreen = ({ navigation }) => {
   const [selectedTab, setSelectedTab] = useState('Giải đấu');
-
+  const goBack = () => {
+    navigation.goBack(); // Go back to the previous screen
+  };
   const handleTabPress = (tab) => {
     setSelectedTab(tab);
     navigation.navigate(tab === 'Giải đấu' ? 'Tournament' : 'Ranking');
@@ -39,6 +42,9 @@ const RankingScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <TouchableOpacity style={styles.backButton} onPress={goBack}>
+          <Icon name="arrow-back" size={30} color="#000" /> 
+        </TouchableOpacity>
         <View style={styles.tabs}>
           <TouchableOpacity onPress={() => handleTabPress('Giải đấu')}>
             <Text style={[styles.tabButton, selectedTab === 'Giải đấu' && styles.activeTab]}>Giải đấu</Text>
@@ -48,7 +54,6 @@ const RankingScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         
-        {/* Video component */}
         <Image 
             source={require('../assets/cup.jpg')} 
             style={styles.image}
@@ -82,6 +87,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 50,
     alignItems: 'center',
+  },
+  backButton: {
+    position: 'absolute',
+    left: 20,
+    top: 40,
   },
   tabs: {
     flexDirection: 'row',
@@ -136,7 +146,7 @@ const styles = StyleSheet.create({
   },
   highlightedItem: {
     borderWidth: 2,
-    borderColor: 'pink', // Pink border for "Đỗ Thúy Hương"
+    borderColor: 'pink', 
     borderRadius: 10,
     padding: 5,
   },
