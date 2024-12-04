@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, Text, StyleSheet, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
@@ -35,13 +35,30 @@ import Bai1 from './component/Bai1';
 import Bai2 from './component/Bai2';
 import Bai3 from './component/Bai3';
 import Bai4 from './component/Bai4';
+import Screen1 from './component/1';
+import Screen2 from './component/2';
+import Screen3 from './component/3';
+import Screen4 from './component/4';
+import Screen5 from './component/5';
+import Screen6 from './component/6';
+import Screen7 from './component/7';
+import Screen8 from './component/8';
+import Screen9 from './component/9';
+import Screen10 from './component/10';
+import Screen11 from './component/11';
+import Screen12 from './component/12';
+import Screen13 from './component/13';
+import Screen14 from './component/14';
+import Screen15 from './component/15';
+import Screen16 from './component/16';
+import Screen17 from './component/17';
 import SignUp from './component/SignUp';
 import PlayScreen from './component/PlayScreen';
 import LearningScreen from './component/LearningScreen';
+import PaymentScreen from './component/PaymentScreen';
 import FireScreen from './component/FireScreen';
 import RankingScreen from './component/RankingScreen';
 import TournamentScreen from './component/TournamentScreen';
-
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -113,7 +130,7 @@ function TabNavigator() {
                 headerShown: true,  
                 headerTitle: '',  
                 headerLeft: () => (
-                  <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                  <TouchableOpacity onPress={() => navigation.navigate('Video')} style={styles.backButton}>
                     <Ionicons name="arrow-back" size={24} color="#00B7FF" />
                   </TouchableOpacity>
                 ),
@@ -147,6 +164,21 @@ function TabNavigator() {
                 headerShown: false,  
               })}  
             />
+            <Tab.Screen
+              name="Payment"
+              component={PaymentScreen}
+              options={({ navigation }) => ({
+                tabBarButton: () => null,  
+                tabBarStyle: { display: 'none' },  
+                headerShown: true,  
+                headerTitle: '',  
+                headerLeft: () => (
+                  <TouchableOpacity onPress={() => navigation.navigate('LearningScreen')} style={styles.backButton}>
+                    <Ionicons name="arrow-back" size={24} color="#00B7FF" />
+                  </TouchableOpacity>
+                ), 
+              })}  
+            />
         </Tab.Navigator>
     );
 }
@@ -165,7 +197,11 @@ export default function App() {
     if (isLoading) {
         return (
             <View style={styles.splashContainer}>
-                <Text style={styles.splashText}>Welcome to My App!</Text>
+                <Image 
+                    source={require('./assets/logoapp.jpg')} 
+                    style={styles.splashImage} 
+                    resizeMode="contain" 
+                />
             </View>
         );
     }
@@ -196,6 +232,23 @@ export default function App() {
                 <Stack.Screen name="Bai2" component={Bai2} options={{ headerShown: false }}/>
                 <Stack.Screen name="Bai3" component={Bai3} options={{ headerShown: false }}/>
                 <Stack.Screen name="Bai4" component={Bai4} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen1" component={Screen1} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen2" component={Screen2} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen3" component={Screen3} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen4" component={Screen4} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen5" component={Screen5} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen6" component={Screen6} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen7" component={Screen7} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen8" component={Screen8} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen9" component={Screen9} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen10" component={Screen10} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen11" component={Screen11} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen12" component={Screen12} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen13" component={Screen13} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen14" component={Screen14} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen15" component={Screen15} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen16" component={Screen16} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen17" component={Screen17} options={{ headerShown: false }}/>
                 <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }}/>
 
                 {/* Điều hướng vào TabNavigator từ LoginScreen */}
@@ -234,6 +287,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#31ADE8',
     },
     splashText: {
         fontSize: 24,
@@ -252,4 +306,8 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 10,
     },
+    splashImage: {
+        width: 300,  
+        height: 300, 
+      },
 });
