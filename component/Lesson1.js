@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Audio } from 'expo-av';
 import { useNavigation } from '@react-navigation/native';
 
+  
 const requestPermissions = async () => {
   const response = await Audio.requestPermissionsAsync();
   if (!response.granted) {
@@ -28,7 +29,7 @@ const ProgressBar = () => {
   return (
     <View style={styles.progressContainer}>
       <View style={styles.header}>
-        <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('CustomHome')} style={styles.closeButton}>
           <Image source={require('../assets/Close_square.png')} style={styles.closeIcon} />
         </TouchableOpacity>
         <View style={styles.progressBar}>
@@ -44,10 +45,11 @@ const ProgressBar = () => {
   );
 };
 
-const MatchingPairs = () => {
+const MatchingPairs = ({ matchedPairs, setMatchedPairs }) => {
   const [selectedSound, setSelectedSound] = useState(null);
   const [selectedText, setSelectedText] = useState(null);
-  const [matchedPairs, setMatchedPairs] = useState([]);
+  const [incorrectMatch, setIncorrectMatch] = useState(false);
+  const [incorrectPair, setIncorrectPair] = useState({ sound: null, text: null });
   const [sounds, setSounds] = useState([]);
   const [texts, setTexts] = useState([]);
   const [lastSelectionType, setLastSelectionType] = useState(null);
@@ -63,10 +65,10 @@ const MatchingPairs = () => {
     ];
 
     const initialTexts = [
-      { id: 0, text: 'đưa' },
       { id: 1, text: 'nhìn' },
-      { id: 2, text: 'muộn' },
       { id: 3, text: 'thư' },
+      { id: 0, text: 'đưa' },
+      { id: 2, text: 'muộn' },
     ];
 
     setSounds(shuffleArray(initialSounds));
@@ -74,13 +76,27 @@ const MatchingPairs = () => {
   }, []);
 
   const handleSelect = async (type, index, soundFile = null) => {
+    const correctPairs = { 0: 1, 1: 3, 2: 0, 3: 2 }; // Định nghĩa cặp đúng
+
+    // Nếu đã chọn đúng cặp rồi thì không làm gì cả (không hiệu ứng)
+    if (type === 'sound' && matchedPairs.some(pair => pair.sound === index)) return;
+    if (type === 'text' && matchedPairs.some(pair => pair.text === index)) return;
+
+    setIncorrectMatch(false); // Reset trạng thái lỗi khi có lần chọn mới
+
     if (type === 'sound') {
       if (lastSelectionType === 'sound') {
         setSelectedSound(index);
         setSelectedText(null);
       } else {
         if (selectedText !== null) {
-          setMatchedPairs((prev) => [...prev, { sound: index, text: selectedText }]);
+          if (correctPairs[index] === selectedText) {
+            setMatchedPairs((prev) => [...prev, { sound: index, text: selectedText }]);
+          } else {
+            setIncorrectMatch(true); // Hiển thị màu đỏ khi nối sai
+            setIncorrectPair({ sound: index, text: selectedText });
+            setTimeout(() => setIncorrectMatch(false), 1000); // Bỏ trạng thái đỏ sau 3 giây
+          }
           setSelectedSound(null);
           setSelectedText(null);
         } else {
@@ -97,7 +113,13 @@ const MatchingPairs = () => {
         setSelectedSound(null);
       } else {
         if (selectedSound !== null) {
-          setMatchedPairs((prev) => [...prev, { sound: selectedSound, text: index }]);
+          if (correctPairs[selectedSound] === index) {
+            setMatchedPairs((prev) => [...prev, { sound: selectedSound, text: index }]);
+          } else {
+            setIncorrectMatch(true); // Hiển thị màu đỏ khi nối sai
+            setIncorrectPair({ sound: selectedSound, text: index });
+            setTimeout(() => setIncorrectMatch(false), 3000); // Bỏ trạng thái đỏ sau 3 giây
+          }
           setSelectedSound(null);
           setSelectedText(null);
         } else {
@@ -115,8 +137,9 @@ const MatchingPairs = () => {
           <TouchableOpacity
             style={[
               styles.soundButton,
-              matchedPairs.some(pair => pair.sound === soundItem.id) && styles.selected,
+              matchedPairs.some(pair => pair.sound === soundItem.id) && styles.correct, // Màu xám và mờ khi đúng
               selectedSound === soundItem.id && !matchedPairs.some(pair => pair.sound === soundItem.id) && styles.selected,
+              incorrectMatch && incorrectPair.sound === soundItem.id && styles.incorrect,
             ]}
             onPress={() => handleSelect('sound', soundItem.id, soundItem.sound)}
           >
@@ -134,8 +157,9 @@ const MatchingPairs = () => {
           <TouchableOpacity
             style={[
               styles.textButton,
-              matchedPairs.some(pair => pair.text === texts[index].id) && styles.selected,
+              matchedPairs.some(pair => pair.text === texts[index].id) && styles.correct, // Màu xám và mờ khi đúng
               selectedText === texts[index].id && !matchedPairs.some(pair => pair.text === texts[index].id) && styles.selected,
+              incorrectMatch && incorrectPair.text === texts[index].id && styles.incorrect,
             ]}
             onPress={() => handleSelect('text', texts[index].id)}
           >
@@ -150,21 +174,25 @@ const MatchingPairs = () => {
 const Lesson1Screen = () => {
   const navigation = useNavigation();
   const [showWarning, setShowWarning] = useState(false);
+  const [matchedPairs, setMatchedPairs] = useState([]);
 
   const handleCantHearPress = () => {
     setShowWarning(true);
     setTimeout(() => setShowWarning(false), 3000);
   };
 
+  const allMatched = matchedPairs.length === 4; // Kiểm tra nếu tất cả các cặp đã khớp
+
   return (
     <View style={styles.container}>
       <ProgressBar />
-      <MatchingPairs />
+      <MatchingPairs matchedPairs={matchedPairs} setMatchedPairs={setMatchedPairs} />
       <View style={styles.footer}>
         <Text style={styles.cantHearText} onPress={handleCantHearPress}>HIỆN KHÔNG NGHE ĐƯỢC</Text>
         <TouchableOpacity 
-          style={styles.continueButton}
-          onPress={() => navigation.navigate('Lesson2Screen')}
+          style={[styles.continueButton, !allMatched && styles.disabledButton]}
+          onPress={() => allMatched && navigation.navigate('Lesson2Screen')}
+          disabled={!allMatched}
         >
           <Text style={styles.continueButtonText}>TIẾP TỤC</Text>
         </TouchableOpacity>
@@ -214,6 +242,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   heartText: {
+    fontFamily: 'Jaldi',
     color: '#FE5959',
     marginLeft: 4,
     fontWeight: 'bold',
@@ -221,6 +250,7 @@ const styles = StyleSheet.create({
     lineHeight: 42.25,
   },
   instructionText: {
+    fontFamily: 'Instrument Sans',
     fontSize: 18,
     color: '#333',
     fontWeight: '700',
@@ -261,6 +291,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0F7FF',
     borderColor: '#00CFFF',
   },
+  correct: {
+    backgroundColor: '#D3D3D3', // Màu xám cho các cặp đúng
+    borderColor: '#A9A9A9',
+    opacity: 0.2, // Làm mờ khi đúng
+  },
+  incorrect: {
+    backgroundColor: '#FFCDD2',
+    borderColor: '#F44336',
+  },
   soundContent: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -297,6 +336,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     color: '#000000',
+    fontFamily: 'Instrument Sans',
     fontWeight: '400',
     lineHeight: 21.96,
   },
@@ -308,6 +348,7 @@ const styles = StyleSheet.create({
     color: '#A1A1A1',
     fontSize: 18,
     marginBottom: 15,
+    fontFamily: 'Instrument Sans',
     fontWeight: '600',
   },
   continueButton: {
@@ -321,6 +362,10 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 16,
     fontWeight: 'bold',
+    fontFamily: 'Instrument Sans',
+  },
+  disabledButton: {
+    backgroundColor: '#E0E0E0',
   },
   warningMessage: {
     position: 'absolute',
