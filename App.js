@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, View, Text, StyleSheet, Image } from 'react-native';
+import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
@@ -20,6 +20,8 @@ import CustomHomeScreen from './component/CustomHome';
 import Lesson1Screen from './component/Lesson1';
 import Lesson2Screen from './component/Lesson2';
 import Lesson3Screen from './component/Lesson3';
+import Lesson4Screen from './component/Lesson4';
+import Lesson5Screen from './component/Lesson5';
 import HosoScreen from './component/Hoso';
 import NotificationScreen from './component/Notification';
 import SettingScreen from './component/Setting';
@@ -51,10 +53,10 @@ import Screen13 from './component/13';
 import Screen14 from './component/14';
 import Screen15 from './component/15';
 import Screen16 from './component/16';
+import Screen17 from './component/17';
 import SignUp from './component/SignUp';
 import PlayScreen from './component/PlayScreen';
 import LearningScreen from './component/LearningScreen';
-import PaymentScreen from './component/PaymentScreen';
 import FireScreen from './component/FireScreen';
 import RankingScreen from './component/RankingScreen';
 import TournamentScreen from './component/TournamentScreen';
@@ -129,7 +131,7 @@ function TabNavigator() {
                 headerShown: true,  
                 headerTitle: '',  
                 headerLeft: () => (
-                  <TouchableOpacity onPress={() => navigation.navigate('Video')} style={styles.backButton}>
+                  <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
                     <Ionicons name="arrow-back" size={24} color="#00B7FF" />
                   </TouchableOpacity>
                 ),
@@ -163,21 +165,6 @@ function TabNavigator() {
                 headerShown: false,  
               })}  
             />
-            <Tab.Screen
-              name="Payment"
-              component={PaymentScreen}
-              options={({ navigation }) => ({
-                tabBarButton: () => null,  
-                tabBarStyle: { display: 'none' },  
-                headerShown: true,  
-                headerTitle: '',  
-                headerLeft: () => (
-                  <TouchableOpacity onPress={() => navigation.navigate('LearningScreen')} style={styles.backButton}>
-                    <Ionicons name="arrow-back" size={24} color="#00B7FF" />
-                  </TouchableOpacity>
-                ), 
-              })}  
-            />
         </Tab.Navigator>
     );
 }
@@ -196,11 +183,7 @@ export default function App() {
     if (isLoading) {
         return (
             <View style={styles.splashContainer}>
-                <Image 
-                    source={require('./assets/logoapp.jpg')} 
-                    style={styles.splashImage} 
-                    resizeMode="contain" 
-                />
+                <Text style={styles.splashText}>Welcome to My App!</Text>
             </View>
         );
     }
@@ -247,13 +230,16 @@ export default function App() {
                 <Stack.Screen name="Screen14" component={Screen14} options={{ headerShown: false }}/>
                 <Stack.Screen name="Screen15" component={Screen15} options={{ headerShown: false }}/>
                 <Stack.Screen name="Screen16" component={Screen16} options={{ headerShown: false }}/>
+                <Stack.Screen name="Screen17" component={Screen17} options={{ headerShown: false }}/>
                 <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }}/>
 
-                {/* Điều hướng vào TabNavigator từ LoginScreen */}
+                {/* Äiá»u hÆ°á»›ng vÃ o TabNavigator tá»« LoginScreen */}
                 <Stack.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false }} />
                 <Stack.Screen name="Lesson1Screen" component={Lesson1Screen} options={{ headerShown: false }} />
                 <Stack.Screen name="Lesson2Screen" component={Lesson2Screen} options={{ headerShown: false }} />
                 <Stack.Screen name="Lesson3Screen" component={Lesson3Screen} options={{ headerShown: false }} />
+                <Stack.Screen name="Lesson4Screen" component={Lesson4Screen} options={{ headerShown: false }} />
+                <Stack.Screen name="Lesson5Screen" component={Lesson5Screen} options={{ headerShown: false }} />
                 <Stack.Screen name="HosoScreen" component={HosoScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="NotificationScreen" component={NotificationScreen} options={{ headerShown: false }} />
             </Stack.Navigator>
@@ -285,7 +271,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#31ADE8',
     },
     splashText: {
         fontSize: 24,
@@ -304,8 +289,4 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 10,
     },
-    splashImage: {
-        width: 300,  
-        height: 300, 
-      },
 });
