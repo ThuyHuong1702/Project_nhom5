@@ -51,7 +51,6 @@ import Screen13 from './component/13';
 import Screen14 from './component/14';
 import Screen15 from './component/15';
 import Screen16 from './component/16';
-import Screen17 from './component/17';
 import SignUp from './component/SignUp';
 import PlayScreen from './component/PlayScreen';
 import LearningScreen from './component/LearningScreen';
@@ -248,7 +247,6 @@ export default function App() {
                 <Stack.Screen name="Screen14" component={Screen14} options={{ headerShown: false }}/>
                 <Stack.Screen name="Screen15" component={Screen15} options={{ headerShown: false }}/>
                 <Stack.Screen name="Screen16" component={Screen16} options={{ headerShown: false }}/>
-                <Stack.Screen name="Screen17" component={Screen17} options={{ headerShown: false }}/>
                 <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }}/>
 
                 {/* Điều hướng vào TabNavigator từ LoginScreen */}
