@@ -42,12 +42,17 @@ const Bai4 = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Ionicons name="close" size={34} color="#A9A9A9" />
+                <Ionicons
+                    name="close"
+                    size={34}
+                    color="#A9A9A9"
+                    onPress={() => navigation.navigate('CustomHome')} 
+                />
                 <View style={styles.progressBar}>
                     <View style={styles.progress} />
                 </View>
                 <View style={styles.heartContainer}>
-                    <Ionicons name="heart" size={24} color="red" />
+                    <Ionicons name="heart" size={28} color="red" />
                     <Text style={styles.heartText}>{lives}</Text>
                 </View>
             </View>
@@ -55,9 +60,9 @@ const Bai4 = ({ navigation, route }) => {
             <Text style={styles.title}>Đọc và trả lời</Text>
 
             <View style={styles.audioContainer}>
-            <TouchableOpacity onPress={() => handleSpeech("Why do you want to marry John? He isn’t a good boyfriend. He isn’t friendly. And he watches too much TV!")}>
-    <Image source={require('../assets/Group 41902.png')} style={styles.audioIcon} />
-</TouchableOpacity>
+                <TouchableOpacity onPress={() => handleSpeech("Why do you want to marry John? He isn’t a good boyfriend. He isn’t friendly. And he watches too much TV!")}>
+                    <Image source={require('../assets/Group 41902.png')} style={styles.audioIcon} />
+                </TouchableOpacity>
                 <View style={styles.audioTextContainer}>
                     <Text style={styles.audioText}>Why do you want to marry John? He isn’t a good boyfriend. He isn’t friendly. And he watches too much TV!</Text>
                     <View style={styles.dashedLine} />
@@ -69,7 +74,7 @@ const Bai4 = ({ navigation, route }) => {
                 {["không quen John", "muốn cưới John", "không thích John"].map((option, index) => (
                     <TouchableOpacity
                         key={index}
-                        style={[ 
+                        style={[
                             styles.optionButton,
                             selectedOption === index && styles.selectedOptionButton,
                         ]}
@@ -163,7 +168,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         width: '100%',
         paddingLeft: 5,
-        
+
     },
     audioIcon: {
         width: 35,
@@ -178,7 +183,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         color: '#000',
     },
-    
+
     subtitle: {
         fontSize: 18,
         fontWeight: 'bold',
@@ -189,7 +194,7 @@ const styles = StyleSheet.create({
         height: 47,
         marginLeft: 5,
         marginTop: 20,
-       
+
     },
     optionsContainer: {
         justifyContent: 'center',
